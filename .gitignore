@@ -1,0 +1,32 @@
+# Secrets — never commit these
+.env
+.local/speve.token
+.local/*.token
+.local/*.key
+.local/*.secret
+
+# Virtual environment
+.venv/
+
+# Claude Code local settings
+.claude/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

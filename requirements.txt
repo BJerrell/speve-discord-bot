@@ -1,0 +1,3 @@
+# Speve Discord Bot - Main Dependencies
+discord.py>=2.3.0
+python-dotenv>=1.0.0
