@@ -24,6 +24,11 @@ def create_bot():
     @bot.event
     async def on_ready():
         log.info(f"Logged in as {bot.user} (ID: {bot.user.id})")
+        channel_id = os.getenv("STARTUP_CHANNEL_ID")
+        if channel_id:
+            channel = bot.get_channel(int(channel_id))
+            if channel:
+                await channel.send("✅ Speve is online!")
 
     @bot.event
     async def on_command_error(ctx, error):

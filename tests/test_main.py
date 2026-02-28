@@ -40,11 +40,27 @@ class TestBotEvents:
     """Test bot event handlers."""
 
     @pytest.mark.asyncio
-    async def test_on_ready(self):
+    async def test_on_ready_no_channel(self):
+        """on_ready with no STARTUP_CHANNEL_ID set should not raise."""
         bot = create_bot()
-        with patch.object(type(bot), 'user', new_callable=PropertyMock) as mock_user:
-            mock_user.return_value = Mock(id=123456789)
-            await bot.on_ready()  # should not raise
+        env = {k: v for k, v in os.environ.items() if k != 'STARTUP_CHANNEL_ID'}
+        with patch.dict(os.environ, env, clear=True):
+            with patch.object(type(bot), 'user', new_callable=PropertyMock) as mock_user:
+                mock_user.return_value = Mock(id=123456789)
+                await bot.on_ready()
+
+    @pytest.mark.asyncio
+    async def test_on_ready_sends_startup_message(self):
+        """on_ready with STARTUP_CHANNEL_ID set should send a message."""
+        bot = create_bot()
+        mock_channel = Mock()
+        mock_channel.send = AsyncMock()
+        with patch.dict(os.environ, {'STARTUP_CHANNEL_ID': '999'}):
+            with patch.object(type(bot), 'user', new_callable=PropertyMock) as mock_user:
+                mock_user.return_value = Mock(id=123456789)
+                with patch.object(bot, 'get_channel', return_value=mock_channel):
+                    await bot.on_ready()
+        mock_channel.send.assert_called_once_with("✅ Speve is online!")
 
     @pytest.mark.asyncio
     async def test_on_command_error_not_owner(self):
