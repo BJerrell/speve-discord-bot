@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from commands.basic import setup_basic_commands
 from commands.admin import setup_admin_commands
 from commands.voice import setup_voice_commands
+from commands.tts import setup_tts_commands
 
 logging.basicConfig(
     level=logging.INFO,
@@ -46,6 +47,7 @@ def create_bot():
         await setup_basic_commands(bot)
         await setup_admin_commands(bot)
         await setup_voice_commands(bot)
+        await setup_tts_commands(bot)
 
     bot.setup_hook = setup_hook
     return bot

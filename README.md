@@ -17,6 +17,17 @@ A Discord bot built with Python and discord.py.
 pip install -r requirements.txt
 ```
 
+> **Voice/TTS requires FFmpeg** to be installed on your system and available on PATH.
+> Download from [ffmpeg.org](https://ffmpeg.org/download.html) or install via a package manager:
+> ```bash
+> # Windows (winget)
+> winget install ffmpeg
+> # macOS
+> brew install ffmpeg
+> # Ubuntu/Debian
+> sudo apt install ffmpeg
+> ```
+
 ### 2. Configure
 
 Create a `.env` file in the project root (get your token from the [Discord Developer Portal](https://discord.com/developers/applications)):
@@ -47,6 +58,8 @@ Logged in as YourBot#1234 (ID: 123456789)
 | `!🏓` | Responds with 🏓 |
 | `!echo <message>` | Bot repeats your message |
 | `!join` | Bot joins your voice channel |
+| `!say <text>` | Bot speaks text in your voice channel |
+| `!leave` | Bot leaves the voice channel |
 | `!restart` | Restart the bot (owner only) |
 
 ## Project Structure

@@ -8,6 +8,7 @@ from discord.ext import commands
 from commands.basic import setup_basic_commands
 from commands.admin import setup_admin_commands
 from commands.voice import setup_voice_commands
+from commands.tts import setup_tts_commands
 
 
 class TestBasicCommands:
@@ -188,8 +189,9 @@ class TestCommandIntegration:
         await setup_basic_commands(bot)
         await setup_admin_commands(bot)
         await setup_voice_commands(bot)
+        await setup_tts_commands(bot)
 
-        for name in ['hello', 'ping', '🏓', 'echo', 'restart', 'join']:
+        for name in ['hello', 'ping', '🏓', 'echo', 'restart', 'join', 'say', 'leave']:
             assert bot.get_command(name) is not None, f"'{name}' not registered"
 
     @pytest.mark.asyncio
@@ -198,8 +200,11 @@ class TestCommandIntegration:
         await setup_basic_commands(bot)
         await setup_admin_commands(bot)
         await setup_voice_commands(bot)
+        await setup_tts_commands(bot)
 
         assert bot.get_command('echo').help == "Repeats the user's message."
         assert bot.get_command('join').help == "Joins the voice channel you are in."
         assert bot.get_command('🏓').help == "Pong"
         assert bot.get_command('restart').help == "Restarts the bot. Owner only."
+        assert bot.get_command('say').help == "Speaks text in your voice channel."
+        assert bot.get_command('leave').help == "Leaves the voice channel."
